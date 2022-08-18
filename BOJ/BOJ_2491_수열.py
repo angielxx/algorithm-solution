@@ -10,6 +10,7 @@ stack = []
 max = 0
 # 숫자가 달라지는 순간
 i, idx = 0, 0
+dir1, dir2 = 0, 0
 while i < N:
     print(i, stack)
     # 스택에 원소가 하나라도 있으면 방향 비교
@@ -20,7 +21,7 @@ while i < N:
         # idx 계산
         if temp != 0:
             idx = i
-
+        print(dir1, temp)
         # 1개 있을 때 넣으려고 하는 원소랑 비교하여 초기 방향을 설정
         if len(stack) == 1:
             print('1')
@@ -32,20 +33,25 @@ while i < N:
         else:
             dir2 = temp
             # 방향이 같은 경우 계속 스택에 넣음
-            if dir1 == dir2 or dir2 == 0:
-                print('2')
+            if dir1 == 0:
                 stack.append(num[i])
                 i += 1
-                dir1 = dir2
-            # 방향이 달라지면
-            elif dir1 != dir2 and dir2 != 0:
-                print('3')
-                cnt = len(stack)
-                if cnt > max:
-                    print('4')
-                    max = cnt
-                    stack.clear()
-                    i = idx
+                dir1 = dir1
+            else:
+                if dir1 == dir2 or dir2 == 0:
+                    print('2')
+                    stack.append(num[i])
+                    i += 1
+                    dir1 = dir2
+                # 방향이 달라지면
+                elif dir1 != dir2:
+                    print('here')
+                    cnt = len(stack)
+                    if cnt > max:
+                        print('4')
+                        max = cnt
+                        stack.clear()
+                        i = idx
     # 스택에 원소가 없으면 넣기만
     else:
         stack.append(num[i])
