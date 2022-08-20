@@ -19,4 +19,5 @@ for str in strs:
 result = []
 for key,val in spell.items():
     result.append(val)
+
 print(result)
