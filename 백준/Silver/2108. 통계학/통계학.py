@@ -1,39 +1,54 @@
 import sys
-from collections import Counter
 input = sys.stdin.readline
 
-# 수의 개수
 N = int(input())
-# 숫자들
-numbers = [ int(input()) for _ in range(N)]
+# 각 정수들의 빈도를 저장할 배열
+#  -4000 ~ 0 ~ 4000
+counts = [0 for i in range(8001)]
 
-# 오름차순 정렬
-numbers.sort()
-# print(numbers)
+sum = 0
+for i in range(N):
+    # 정수 받기
+    n = int(input())
+    sum += n
+    # 빈도 체크
+    counts[n+4000] += 1
 
-# 리스트 합계, 평균
-total = sum(numbers)
-average = round(total / len(numbers))
+# 평균
+print(round(sum/N))
 
 # 중앙값
-mid_idx = len(numbers) // 2
-middle = numbers[mid_idx]
+run = 0
+i = -1
+# (N+1) // 2 는 중앙에 위치하는 값의 차례 (~번째)
+while run < (N+1) // 2:
+    # counts가 0~8000
+    # counts 배열에서 몇번째 위치하는지 세는 것 = 값 + 4000인것
+    i += 1
+    # 빈도가 0 이상인 숫자들을 작은 것 부터 세게 됨
+    run += counts[i]
+print(i - 4000)
 
 # 최빈값
-most_common = Counter(numbers).most_common()
-common = 0
-if len(most_common) == 1:
-    common = most_common[0][0]
-else: 
-    if most_common[0][1] == most_common[1][1]:
-        common = most_common[1][0]
-    else:
-        common = most_common[0][0]
+m = max(counts)
+maxs = []
+for i in range(8001):
+    if counts[i] == m:
+        maxs.append(i - 4000)
+if len(maxs) > 1:
+    print(maxs[1])
+else:
+    print(maxs[0])
 
 # 범위
-gap = numbers[-1] - numbers[0]
+MAX = 4000
+# counts배열의 8000번째 원소부터 쭉 내려오면서 본다
+# counts[MAX+4000]이 0보다 크면 최대값인 것
+while not counts[MAX+4000]:
+    MAX -= 1
 
-print(average)
-print(middle)
-print(common)
-print(gap)
+MIN = -4000
+# 최솟값은 0번째 원소부터 쭉 올라오면서 본다
+while not counts[MIN+4000]:
+    MIN += 1
+print(MAX - MIN)
