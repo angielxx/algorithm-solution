@@ -1,23 +1,29 @@
 function solution(progresses, speeds) {
-  let answer = [];
-  while (progresses.length) {
+    /*
+    [7, 70, 45]
+    [7, 3, 9]
+    
+    [5, 10, 1, 1, 20, 1]
+    1 
+    */
+    const answer = [];
+    
     for (let i = 0; i < progresses.length; i++) {
-      progresses[i] += speeds[i];
+        progresses[i] = Math.ceil((100 - progresses[i]) / speeds[i])
     }
-
-    cnt = 0;
-    while (progresses[0] >= 100) {
-      progresses.shift();
-      speeds.shift();
-      cnt++;
-      if (!progresses.length) {
-        break;
-      }
+    
+    let cnt = progresses[0];
+    let days = 1;
+    let i = 1;
+    while(i < progresses.length) {
+        if (progresses[i] <= cnt) days++
+        else {
+            answer.push(days);
+            cnt = progresses[i];
+            days = 1
+        }
+        i++;
     }
-    if (cnt > 0) {
-      answer.push(cnt);
-      cnt = 0;
-    }
-  }
-  return answer;
+    answer.push(days)
+    return answer
 }
