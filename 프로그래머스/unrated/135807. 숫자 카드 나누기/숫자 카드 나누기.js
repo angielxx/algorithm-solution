@@ -1,25 +1,20 @@
 function solution(arrayA, arrayB) {
-    
-    const divA = arrayA.reduce((a, b) => gcd(a, b));
-    const divB = arrayB.reduce((a, b) => gcd(a, b));
-    console.log(divA, divB);
-    
-    const isA = arrayB.every((x) => x / divA !== Math.floor(x / divA));
-    const isB = arrayA.every((x) => x / divB !== Math.floor(x / divB));
-    
-    const answer = [];
-    if (isA) answer.push(divA);
-    if (isB) answer.push(divB);
-    
-    if (!answer.length) return 0;
-    return Math.max(...answer);
+    // A의 모든 수의 약수 Set
+    // A의 약수에는 있고 B의 약수 중엔 없는 것
+    const setA = new Set();
+    for (const a of arrayA) {
+        console.log(div(a))
+        setA.add(...div(a));
+        console.log(setA)
+    }
+    console.log()
 }
 
-function gcd(a, b) {
-    while (b !== 0) {
-        const r = a % b;
-        a = b;
-        b = r;
+function div(a) {
+    const result = [];
+    
+    for (let n = 2; n <= Math.floor(Math.sqrt(a)); n++) {
+        if (a % n === 0) result.push(n, a/n);
     }
-    return a;
+    return result
 }
