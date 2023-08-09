@@ -1,10 +1,8 @@
 import sys
-from collections import deque
 input = sys.stdin.readline
 
 n = int(input())
 top = list(map(int, input().strip().split(' ')))
-top = deque(top)
 
 for i in range(n):
     top[i] = (top[i], i+1)
@@ -12,8 +10,8 @@ for i in range(n):
 answer = []
 
 left = []
-while top:
-    height, index = top.popleft()
+for i in range(n):
+    height, index = top[i]
 
     for i in range(len(left) - 1, -1, -1):
         h, idx = left[i]
