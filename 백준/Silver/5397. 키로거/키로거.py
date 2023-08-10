@@ -11,8 +11,7 @@ for _ in range(T):
     left = deque([])
     right = deque([])
     
-    for i in range(len(test)):
-        s = test[i]
+    for s in test:
         if s == '<':
             if left: right.appendleft(left.pop())
         elif s == '>':
