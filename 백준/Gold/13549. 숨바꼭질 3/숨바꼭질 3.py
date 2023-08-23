@@ -1,25 +1,34 @@
 import sys
 from collections import deque
-
 input = sys.stdin.readline
 
-N, K = map(int, input().split())
-q = deque()
-q.append(N)
-visited = [-1 for _ in range(100001)]
-visited[N]=0
+n, k = map(int, input().split())
+
+# 각 위치에 최소로 도달할 수 있는 시간을 저장
+visited = [sys.maxsize] * 100001
+q = deque([(n, 0)]) # 위치, 시간
+visited[n] = 0
 
 while q:
-    s=q.popleft()
-    if s == K:
-        print(visited[s])
+    now, time = q.popleft()
+    
+    if now == k:
         break
-    if 0 <= s-1 < 100001 and visited[s-1]==-1:
-        visited[s-1]=visited[s]+1
-        q.append(s-1)
-    if 0 <= s*2 < 100001 and visited[s*2]==-1:
-        visited[s*2]=visited[s]
-        q.appendleft(s*2)
-    if 0 <= s+1 < 100001 and visited[s+1]==-1:
-        visited[s+1]=visited[s]+1
-        q.append(s+1)
+    
+    # 걷는 경우
+    if now - 1 >= 0:
+        if visited[now - 1] > time + 1:
+            visited[now - 1] = min(visited[now - 1], time + 1) # 큐에 같은 위치가 중복해서 들어가는 경우를 방지하기 위함
+            q.append((now - 1, time + 1))
+            
+    if now + 1 <= 100000:
+        if visited[now + 1] > time + 1:
+            visited[now + 1] = min(visited[now + 1], time + 1)
+            q.append((now + 1, time + 1))
+    # 순간이동
+    if now * 2 <= 100000:
+        if visited[now * 2] > time:
+            visited[now * 2] = min(visited[now * 2], time)
+            q.append((now * 2, time))   
+
+print(visited[k])
