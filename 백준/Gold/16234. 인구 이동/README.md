@@ -1,14 +1,14 @@
-# [Gold V] 인구 이동 - 16234 
+# [Gold IV] 인구 이동 - 16234 
 
 [문제 링크](https://www.acmicpc.net/problem/16234) 
 
 ### 성능 요약
 
-메모리: 131808 KB, 시간: 1432 ms
+메모리: 34348 KB, 시간: 5308 ms
 
 ### 분류
 
-너비 우선 탐색(bfs), 그래프 이론(graphs), 그래프 탐색(graph_traversal), 구현(implementation), 시뮬레이션(simulation)
+너비 우선 탐색, 그래프 이론, 그래프 탐색, 구현, 시뮬레이션
 
 ### 문제 설명
 
